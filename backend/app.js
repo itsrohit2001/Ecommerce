@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const PORT = 4500;
 const routes = require("./routes");
+const dotenv = require("dotenv").config();
+
+app.use(express.json());
 
 app.use("/api", routes);
 
