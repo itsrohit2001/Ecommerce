@@ -36,10 +36,10 @@ function Header() {
   }, [location.pathname]);
 
   return (
-    <div className="flex justify-center items-center w-full bg-white shadow">
-      <header className="header w-full max-w-7xl flex justify-between items-center py-4 px-4 md:px-8">
+    <div className="flex items-center justify-center w-full bg-white shadow">
+      <header className="flex items-center justify-between w-full px-4 py-4 header max-w-7xl md:px-8">
         {/* Logo */}
-        <div className="logo flex-shrink-0">
+        <div className="flex-shrink-0 logo">
           <Link to="/" className="text-2xl font-bold text-black-600 hover:text-blue-400">
             {LOGO_TEXT}
           </Link>
@@ -58,24 +58,24 @@ function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <div className="hidden md:block text-gray-600 hover:text-blue-400">
+          <div className="hidden text-gray-600 md:block hover:text-blue-400">
             <Link to="/login">{LOGIN_TEXT}</Link>
           </div>
           <div className="flex items-center gap-4">
             {/* Search Icon and Input */}
             <div className="relative">
               <FaSearch
-                className="text-gray-400 hover:text-blue-400 cursor-pointer"
+                className="text-gray-400 cursor-pointer hover:text-blue-400"
                 onClick={() => setShowSearch((prev) => !prev)}
               />
               {/* {showSearch && (
                 <form
                   onSubmit={handleSearch}
-                  className="absolute right-0 top-8 bg-white shadow rounded flex items-center px-2 py-1 z-50 w-56"
+                  className="absolute right-0 z-50 flex items-center w-56 px-2 py-1 bg-white rounded shadow top-8"
                 >
                   <input
                     type="text"
-                    className="border-none outline-none flex-1 px-2 py-1 text-sm"
+                    className="flex-1 px-2 py-1 text-sm border-none outline-none"
                     placeholder="Search products..."
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
@@ -83,7 +83,7 @@ function Header() {
                   />
                   <button
                     type="submit"
-                    className="ml-2 text-blue-500 font-semibold"
+                    className="ml-2 font-semibold text-blue-500"
                   >
                     Go
                   </button>
@@ -101,7 +101,7 @@ function Header() {
                 />
                 {cartItemCount > 0 && (
                   <span
-                    className="absolute -right-3 top-1 text-base font-semibold"
+                    className="absolute text-base font-semibold -right-3 top-1"
                     style={{ background: "none", color: "black" }}
                   >
                     {cartItemCount}
@@ -109,11 +109,11 @@ function Header() {
                 )}
               </Link>
             </div>
-            <FaHeart className="text-gray-400 hover:text-blue-400 cursor-pointer" />
+            <FaHeart className="text-gray-400 cursor-pointer hover:text-blue-400" />
           </div>
           {/* Hamburger for mobile */}
           <button
-            className="lg:hidden ml-2 text-2xl text-gray-600"
+            className="ml-2 text-2xl text-gray-600 lg:hidden"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open menu"
           >
@@ -123,9 +123,9 @@ function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex flex-col">
-            <div className="bg-white w-4/5 max-w-xs h-full p-6 flex flex-col shadow-lg">
-              <div className="flex justify-between items-center mb-8">
+          <div className="fixed inset-0 z-50 flex flex-col bg-black bg-opacity-40">
+            <div className="flex flex-col w-4/5 h-full max-w-xs p-6 bg-white shadow-lg">
+              <div className="flex items-center justify-between mb-8">
                 <Link
                   to="/"
                   className="text-2xl font-bold text-black-600 hover:text-blue-400"
@@ -147,18 +147,18 @@ function Header() {
                   handleSearch(e);
                   setMobileMenuOpen(false);
                 }}
-                className="mb-6 flex items-center gap-2"
+                className="flex items-center gap-2 mb-6"
               >
                 <input
                   type="text"
-                  className="border rounded px-3 py-2 w-full text-sm"
+                  className="w-full px-3 py-2 text-sm border rounded"
                   placeholder="Search products..."
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 text-sm"
+                  className="px-3 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
                 >
                   Go
                 </button>
@@ -178,10 +178,10 @@ function Header() {
                   ))}
                 </ul>
               </nav>
-              <div className="mt-8 flex flex-col gap-4">
+              <div className="flex flex-col gap-4 mt-8">
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-blue-400 text-lg"
+                  className="text-lg text-gray-600 hover:text-blue-400"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {LOGIN_TEXT}
