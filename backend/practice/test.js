@@ -69,3 +69,32 @@ const arr3 = arr2.reduce((accumulator, currentValue) => {
 console.log(arr3); // Output: 15
 
 
+/* backend me post request- 
+
+
+hashing function from crypto library
+
+JWT token
+access token - after successful login
+
+
+
+
+*/
+
+/* 
+create arrow function not functional component
+css styling of differnet pages should look appealing
+add to cart button in popular products
+
+
+*/
+
+/*
+footer-how is map and contact us coming
+slider -button and button should lead to ?
+popular products- add to cart functionality
+shop from navbar - add to cart functionality, lead to pdp page
+
+
+*/
