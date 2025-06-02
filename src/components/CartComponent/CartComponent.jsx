@@ -1,6 +1,6 @@
 import CartPage from "../../pages/CartPage";
 
-function CartComponent() {
+const CartComponent = () => {
   return <CartPage />;
 }
 

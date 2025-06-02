@@ -1,7 +1,7 @@
 import Hero from "../components/Hero/Hero";
 import { FeaturedProduct } from "../components/FeaturedProducts/FeaturedProduct";
 
-function HomePage() {
+const HomePage = () => {
   return (
     <>
       <Hero />

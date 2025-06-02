@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { FOOTER_TEXT } from "../../constants/constant";
 
-function Footer() {
+const Footer = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0,

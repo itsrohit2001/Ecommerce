@@ -14,11 +14,11 @@ import { CartContextProvider } from "./context/CartContextProvider";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 
-function App() {
+const App = () => {
   return (
     <CartContextProvider>
       <Router>
-        <main className="min-h-screen">
+        <main className="">
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />

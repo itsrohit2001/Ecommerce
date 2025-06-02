@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import Slide from "./slide";
 
-function Hero() {
+const Hero = () => {
   return (
     <>
       <Swiper

@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContextProvider";
 
-function Pdp() {
+const Pdp = () => {
   const { addToCart } = useContext(CartContext);
   const { id } = useParams();
   const [qty, setQty] = useState(1);
@@ -54,7 +54,7 @@ function Pdp() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <span className="inline-block w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></span>
+        <span className="inline-block w-12 h-12 border-4 border-blue-400 rounded-full border-t-transparent animate-spin"></span>
       </div>
     );
   }
@@ -63,7 +63,7 @@ function Pdp() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <span className="inline-block w-12 h-12 border-4 border-red-400 border-t-transparent rounded-full animate-spin mb-4"></span>
+          <span className="inline-block w-12 h-12 mb-4 border-4 border-red-400 rounded-full border-t-transparent animate-spin"></span>
           <div className="text-xl font-semibold text-gray-600">
             Product does not exist
           </div>
@@ -73,22 +73,22 @@ function Pdp() {
   }
 
   return (
-    <div className="p-8 bg-gray-50 flex justify-center">
-      <div className="max-w-5xl mx-auto flex flex-col gap-12">
+    <div className="flex justify-center p-8 bg-gray-50">
+      <div className="flex flex-col max-w-5xl gap-12 mx-auto">
         <div
           key={product.id}
-          className="bg-white rounded shadow-lg flex flex-col md:flex-row gap-8 p-6"
+          className="flex flex-col gap-8 p-6 bg-white rounded shadow-lg md:flex-row"
         >
           {/* Product Image & Quantity */}
-          <div className="flex-1 flex flex-col items-center">
+          <div className="flex flex-col items-center flex-1">
             <img
               src={product.image}
               alt={product.name}
-              className="w-72 h-72 object-contain mb-4"
+              className="object-contain mb-4 w-72 h-72"
             />
             <div className="flex gap-2">
               <button
-                className="border px-4 py-1 rounded bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                className="px-4 py-1 bg-gray-100 border rounded cursor-pointer hover:bg-gray-200"
                 disabled={qty <= 1}
                 onClick={() => handleQtyChange(-1)}
               >
@@ -96,7 +96,7 @@ function Pdp() {
               </button>
               <span className="px-4 py-1">{qty}</span>
               <button
-                className="border px-4 py-1 rounded bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                className="px-4 py-1 bg-gray-100 border rounded cursor-pointer hover:bg-gray-200"
                 disabled={!product.inStock}
                 onClick={() => handleQtyChange(1)}
               >
@@ -106,15 +106,15 @@ function Pdp() {
           </div>
           {/* Product Details */}
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-            <p className="text-gray-600 mb-1">
+            <h1 className="mb-2 text-2xl font-bold">{product.name}</h1>
+            <p className="mb-1 text-gray-600">
               Brand: <span className="font-semibold">{product.brand}</span>
             </p>
             <div className="flex items-center gap-2 mb-2">
               <span className="bg-green-600 text-white px-2 py-0.5 rounded text-sm font-semibold">
                 {product.rating} ★
               </span>
-              <span className="text-gray-500 text-sm">
+              <span className="text-sm text-gray-500">
                 {product.reviews} Ratings & Reviews
               </span>
             </div>
@@ -122,23 +122,23 @@ function Pdp() {
               <span className="text-2xl font-bold text-blue-700">
                 ₹{product.price.toLocaleString()}
               </span>
-              <span className="line-through text-gray-400">
+              <span className="text-gray-400 line-through">
                 ₹{product.originalPrice.toLocaleString()}
               </span>
-              <span className="text-green-600 font-semibold">
+              <span className="font-semibold text-green-600">
                 {product.discount}
               </span>
             </div>
             <ul className="mb-3">
               {product.highlights.map((h, i) => (
-                <li key={i} className="text-gray-700 text-sm list-disc ml-5">
+                <li key={i} className="ml-5 text-sm text-gray-700 list-disc">
                   {h}
                 </li>
               ))}
             </ul>
             <div className="mb-3">
               <span className="font-semibold">Available Offers:</span>
-              <ul className="text-green-700 text-sm ml-5 mt-1">
+              <ul className="mt-1 ml-5 text-sm text-green-700">
                 {product.offers.map((offer, i) => (
                   <li key={i}>• {offer}</li>
                 ))}
@@ -160,27 +160,27 @@ function Pdp() {
               <button
                 className={`${
                   actionLoading ? "bg-orange-500" : "bg-orange-600"
-                } text-white px-6 py-2 rounded font-semibold hover:bg-orange-600 transition flex items-center justify-center gap-2 cursor-pointer`}
+                } text-white px-6 py-2 rounded font-semibold bg-orange-400 hover:bg-orange-600 transition flex items-center justify-center gap-2 cursor-pointer`}
                 disabled={!product.inStock || actionLoading}
                 onClick={handleAddToCart}
               >
                 {actionLoading && (
-                  <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  <span className="inline-block w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin"></span>
                 )}
                 {actionLoading ? "Adding..." : "Add to Cart"}
               </button>
               <button
-                className="bg-yellow-400 text-gray-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition cursor-pointer"
+                className="px-6 py-2 font-semibold text-gray-900 transition bg-yellow-400 rounded cursor-pointer hover:bg-yellow-500"
                 disabled={!product.inStock}
               >
                 Buy Now
               </button>
             </div>
             {!product.inStock && (
-              <p className="text-red-600 mt-2 font-semibold">Out of Stock</p>
+              <p className="mt-2 font-semibold text-red-600">Out of Stock</p>
             )}
             <div className="mt-6">
-              <h2 className="text-lg font-semibold mb-2">
+              <h2 className="mb-2 text-lg font-semibold">
                 Product Description
               </h2>
               <p className="text-gray-700">{product.description}</p>

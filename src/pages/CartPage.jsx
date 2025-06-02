@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContextProvider";
 import { Link, useNavigate } from "react-router-dom";
 
-function CartPage() {
+const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 

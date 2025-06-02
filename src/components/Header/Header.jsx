@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContextProvider";
 import React from "react";
 
-function Header() {
+const Header = () => {
   const { cartItems } = useContext(CartContext);
   const cartItemCount = cartItems.reduce(
     (count, item) => count + (item.quantity || 1),

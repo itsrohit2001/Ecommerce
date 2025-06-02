@@ -1,33 +1,41 @@
 import React from "react";
 
-function Shop() {
+const productImages = [
+  process.env.PUBLIC_URL + "/assets/prod-img1.png",
+  process.env.PUBLIC_URL + "/assets/prod-img2.png",
+  process.env.PUBLIC_URL + "/assets/prod-img3.png",
+];
+
+const Shop = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-50 p-8">
-      <div className="p-8 bg-white rounded shadow-md w-full max-w-4xl">
-        <h1 className="text-3xl font-bold mb-4 text-center">Shop Products</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="border p-4 rounded shadow">
-            <img src="/assets/product1.jpg" alt="Product 1" className="mb-2 w-full h-40 object-cover" />
-            <h2 className="text-xl font-semibold">Product 1</h2>
-            <p className="text-gray-600">$29.99</p>
-            <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
-          </div>
-          <div className="border p-4 rounded shadow">
-            <img src="/assets/product2.jpg" alt="Product 2" className="mb-2 w-full h-40 object-cover" />
-            <h2 className="text-xl font-semibold">Product 2</h2>
-            <p className="text-gray-600">$39.99</p>
-            <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
-          </div>
-          <div className="border p-4 rounded shadow">
-            <img src="/assets/product3.jpg" alt="Product 3" className="mb-2 w-full h-40 object-cover" />
-            <h2 className="text-xl font-semibold">Product 3</h2>
-            <p className="text-gray-600">$49.99</p>
-            <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
-          </div>
+    <div className="flex items-center justify-center  p-8 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+      <div className="w-full max-w-5xl px-8 py-10 bg-white shadow-2xl rounded-2xl md:px-14 md:py-14">
+        <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-center text-blue-700">
+          Shop <span className="text-purple-500">Products</span>
+        </h1>
+        <div className="w-16 h-1 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"></div>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+          {productImages.map((img, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col items-center p-5 transition border border-blue-100 shadow bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl hover:shadow-xl"
+            >
+              <img
+                src={img}
+                alt={`Product ${idx + 1}`}
+                className="object-cover w-full mb-4 border-2 border-blue-100 rounded-lg shadow h-44"
+              />
+              <h2 className="mb-1 text-xl font-semibold">Product {idx}</h2>
+              <p className="mb-2 text-gray-600">${29 + idx * 10 - 10}.99</p>
+              <button className="px-5 py-2 mt-auto font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600">
+                Add to Cart
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Shop;

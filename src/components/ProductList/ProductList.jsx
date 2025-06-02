@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import AllProducts from "../../components/AllProducts/AllProducts";
 import React from "react";
 
-export function ProductListUI({ products }) {
+export const ProductListUI = ({ products }) => {
   // Show 1 on mobile, 2 on sm, 3 on md+
   const getVisibleCount = () => {
     if (window.innerWidth < 640) return 1;
@@ -49,8 +49,8 @@ export function ProductListUI({ products }) {
 
   // Responsive carousel container
   return (
-    <div className="product-list px-2 py-8 sm:px-4">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Popular Products</h1>
+    <div className="px-2 py-8 product-list sm:px-4">
+      <h1 className="mb-6 text-2xl font-bold text-center sm:text-3xl">Popular Products</h1>
       <div className="relative">
         <div className="flex items-center justify-center gap-2">
           {/* Left Arrow */}
@@ -63,7 +63,7 @@ export function ProductListUI({ products }) {
             <FaChevronLeft size={20} />
           </button>
           {/* Carousel Items with animation */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex justify-center flex-1">
             <div
               className={`
                 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-5xl
@@ -78,16 +78,16 @@ export function ProductListUI({ products }) {
                   className="no-underline"
                   key={product.id}
                 >
-                  <div className="product-item border rounded shadow flex flex-col items-center p-4 bg-white h-full">
+                  <div className="flex flex-col items-center h-full p-4 bg-white border rounded shadow product-item">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="mb-4 w-full h-40 sm:h-48 object-cover rounded"
+                      className="object-cover w-full h-40 mb-4 rounded sm:h-48"
                     />
-                    <h2 className="text-lg sm:text-xl font-semibold mb-2 text-center">
+                    <h2 className="mb-2 text-lg font-semibold text-center sm:text-xl">
                       {product.name}
                     </h2>
-                    <p className="text-gray-600 mb-2 text-center">
+                    <p className="mb-2 text-center text-gray-600">
                       Price: ₹{product.price}
                     </p>
                   </div>
@@ -110,7 +110,7 @@ export function ProductListUI({ products }) {
   );
 }
 
-function ProductList() {
+const ProductList = () => {
   return (
     <Routes>
       <Route path="/" element={<AllProducts />} />

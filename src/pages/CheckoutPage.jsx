@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContextProvider";
 import { Link, useNavigate } from "react-router-dom";
 
-function CheckoutPage() {
+const CheckoutPage = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const [address, setAddress] = useState("");
   const [payment, setPayment] = useState("cod");
@@ -47,7 +47,7 @@ function CheckoutPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-gray-50 min-h-screen">
+    <div className="max-w-3xl mx-auto p-8 bg-gray-50 ">
       <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
       <form
         onSubmit={handleOrder}

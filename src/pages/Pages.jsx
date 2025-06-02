@@ -1,39 +1,48 @@
-function Pages() {
+import React from "react";
+
+const Pages = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-50 p-8">
-      <div className="p-8 bg-white rounded shadow-md w-full max-w-2xl">
-        <h1 className="text-3xl font-bold mb-4 text-center">All Pages</h1>
-        <p className="mb-4 text-center">
+    <div className="flex items-center justify-center  p-8 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+      <div className="w-full max-w-2xl px-8 py-10 bg-white shadow-2xl rounded-2xl md:px-14 md:py-14">
+        <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-center text-blue-700">
+          All <span className="text-purple-500">Pages</span>
+        </h1>
+        <div className="w-16 h-1 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"></div>
+        <p className="mb-6 text-lg text-center text-gray-600">
           Explore various sections of our e-commerce platform. Here you can find links and information about our shop, your account, order tracking, FAQs, and more.
         </p>
-        <ul className="list-disc ml-6 space-y-2">
+        <ul className="ml-6 space-y-3 text-base text-gray-700 list-disc">
           <li>
-            <strong>Shop:</strong> Browse and purchase products from our extensive catalog.
+            <strong className="text-blue-600">Shop:</strong> Browse and purchase products from our extensive catalog.
           </li>
           <li>
-            <strong>Account:</strong> Manage your profile, addresses, and payment methods.
+            <strong className="text-purple-600">Account:</strong> Manage your profile, addresses, and payment methods.
           </li>
           <li>
-            <strong>Order Tracking:</strong> Check the status of your recent orders and view order history.
+            <strong className="text-pink-600">Order Tracking:</strong> Check the status of your recent orders and view order history.
           </li>
           <li>
-            <strong>Wishlist:</strong> Save your favorite products for later.
+            <strong className="text-blue-500">Wishlist:</strong> Save your favorite products for later.
           </li>
           <li>
-            <strong>FAQs:</strong> Find answers to common questions about shopping, shipping, and returns.
+            <strong className="text-purple-500">FAQs:</strong> Find answers to common questions about shopping, shipping, and returns.
           </li>
           <li>
-            <strong>Customer Support:</strong> Contact our support team for help with your orders or account.
+            <strong className="text-pink-500">Customer Support:</strong> Contact our support team for help with your orders or account.
           </li>
         </ul>
-        <div className="mt-6 text-center">
+        <div className="mt-8 text-center">
           <p>
-            Need more help? Visit our <a href="/contact" className="text-blue-500 underline">Contact Us</a> page.
+            Need more help? Visit our{" "}
+            <a href="/contact" className="text-blue-500 underline transition hover:text-blue-700">
+              Contact Us
+            </a>{" "}
+            page.
           </p>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Pages;

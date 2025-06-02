@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ProductListUI } from "../ProductList/ProductList";
 import { Link } from "react-router-dom";
 
-export function FeaturedProduct() {
+export const FeaturedProduct = () => {
   const [products, setProducts] = React.useState([]);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export function FeaturedProduct() {
     fetchProducts();
   }, []);
   return(
-    <div className="flex justify-center items-center flex-col gap-8 p-8 bg-gray-50">
+    <div className="flex flex-col items-center justify-center gap-8 p-8 bg-gray-50">
          <ProductListUI products={products} />
-         <Link to={"/products"} className="text-white bg-orange-500 hover:bg-orange-600 py-3 px-6 rounded full shadow-lg flex items-center gap-2 animate-bounce hover:animate-none">View More</Link>
+         <Link to={"/products"} className="flex items-center gap-2 px-6 py-3 text-white bg-orange-500 rounded shadow-lg hover:bg-orange-600 full animate-bounce hover:animate-none">View More</Link>
     </div>
     );
 }

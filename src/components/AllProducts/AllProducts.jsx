@@ -6,7 +6,7 @@ const categories = ["All", "Mobiles", "Laptops", "Accessories"];
 const brands = ["All", "Apple", "Samsung", "OnePlus", "Dell", "HP"];
 const LIMIT_PER_PAGE = 6;
 
-function AllProducts() {
+const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = React.useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -53,21 +53,21 @@ function AllProducts() {
   // });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center">
+    <div className=" py-4 bg-gray-50 sm:py-8">
+      <div className="px-2 mx-auto max-w-7xl sm:px-4">
+        <h1 className="mb-4 text-2xl font-bold text-center sm:text-3xl sm:mb-6">
           All Products
         </h1>
         {/* Filters & Search */}
-        <div className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-8">
+        <div className="flex flex-col gap-3 mb-6 sm:gap-4 sm:mb-8">
           {/* Category and Brand in a horizontal row */}
-          <div className="flex flex-row gap-3 sm:gap-4 w-full">
+          <div className="flex flex-row w-full gap-3 sm:gap-4">
             <div className="w-1/2">
-              <label className="block mb-1 font-semibold text-sm">
+              <label className="block mb-1 text-sm font-semibold">
                 Category
               </label>
               <select
-                className="border rounded px-3 py-2 w-full"
+                className="w-full px-3 py-2 border rounded"
                 value={selectedCategory}
                 onChange={(e) => {console.log(e.target.value); setSelectedCategory(e.target.value);}}
               >
@@ -77,9 +77,9 @@ function AllProducts() {
               </select>
             </div>
             <div className="w-1/2">
-              <label className="block mb-1 font-semibold text-sm">Brand</label>
+              <label className="block mb-1 text-sm font-semibold">Brand</label>
               <select
-                className="border rounded px-3 py-2 w-full"
+                className="w-full px-3 py-2 border rounded"
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
               >
@@ -91,10 +91,10 @@ function AllProducts() {
           </div>
           {/* Search below */}
           <div>
-            <label className="block mb-1 font-semibold text-sm">Search</label>
+            <label className="block mb-1 text-sm font-semibold">Search</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 w-full"
+              className="w-full px-3 py-2 border rounded"
               placeholder="Search products..."
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -107,34 +107,34 @@ function AllProducts() {
           </div>
         </div>
         {/* Product Grid */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
+        <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 sm:gap-8">
           {products.length === 0 ? (
-            <div className="col-span-full text-center text-gray-500 py-8">
+            <div className="py-8 text-center text-gray-500 col-span-full">
               No products found.
             </div>
           ) : (
             products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded shadow p-3 sm:p-4 flex flex-col items-center"
+                className="flex flex-col items-center p-3 bg-white rounded shadow sm:p-4"
               >
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="mb-3 sm:mb-4 w-full h-40 sm:h-48 object-contain rounded"
+                  className="object-contain w-full h-40 mb-3 rounded sm:mb-4 sm:h-48"
                 />
-                <h2 className="text-base sm:text-lg font-semibold mb-1 text-center">
+                <h2 className="mb-1 text-base font-semibold text-center sm:text-lg">
                   {product.name}
                 </h2>
-                <p className="text-gray-600 mb-1 text-center text-sm sm:text-base">
+                <p className="mb-1 text-sm text-center text-gray-600 sm:text-base">
                   {product.brand}
                 </p>
-                <p className="text-blue-700 font-bold mb-2 text-center text-base sm:text-lg">
+                <p className="mb-2 text-base font-bold text-center text-blue-700 sm:text-lg">
                   ₹{product.price}
                 </p>
                 <Link
                   to={`/products/${product.id}`}
-                  className="bg-orange-500 text-white px-3 py-2 rounded hover:bg-orange-600 w-full text-center text-sm sm:text-base"
+                  className="w-full px-3 py-2 text-sm text-center text-white bg-orange-500 rounded hover:bg-orange-600 sm:text-base"
                 >
                   View Details
                 </Link>
@@ -144,7 +144,7 @@ function AllProducts() {
         </div>
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex flex-wrap justify-center mt-6 sm:mt-8 gap-2">
+          <div className="flex flex-wrap justify-center gap-2 mt-6 sm:mt-8">
             <button
               className={`px-3 py-1 rounded border ${
                 currentPage === 1

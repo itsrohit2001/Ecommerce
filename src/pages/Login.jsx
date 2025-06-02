@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Toast({ message, onClose, isSuccess = false }) {
+const Toast = ({ message, onClose, isSuccess = false }) => {
   useEffect(() => {
     const timer = setTimeout(onClose, 3000);
     return () => clearTimeout(timer);
@@ -9,9 +9,14 @@ function Toast({ message, onClose, isSuccess = false }) {
 
   return (
     <div
-      className={`fixed z-50 flex items-center gap-2 px-6 py-3 text-white transform -translate-x-1/2 rounded shadow-lg top-6 left-1/2 animate-fade-in ${
+      className={`fixed z-50 flex items-center gap-2 px-6 py-3 text-white transform -translate-x-1/2 rounded-xl shadow-2xl top-6 left-1/2 animate-fade-in ${
         isSuccess ? "bg-green-500" : "bg-red-500"
       }`}
+      style={{
+        border: isSuccess ? "2px solid #22c55e" : "2px solid #ef4444",
+        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+        backdropFilter: "blur(4px)",
+      }}
     >
       <span className="font-semibold">{message}</span>
       <button
@@ -22,13 +27,13 @@ function Toast({ message, onClose, isSuccess = false }) {
       </button>
     </div>
   );
-}
+};
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function Login() {
+const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [formData, setFormData] = useState({});
@@ -73,12 +78,20 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center p-8 bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="mb-6 text-2xl font-bold text-center">
-          {isRegister ? "Create Account" : "Sign In to Bandage"}
+    <div className="flex items-center justify-center p-8 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200">
+      <div className="w-full max-w-md p-10 border border-blue-100 shadow-2xl bg-white/90 rounded-3xl backdrop-blur-md">
+        <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-center text-blue-700 drop-shadow">
+          {isRegister ? (
+            <>
+              Create <span className="text-purple-500">Account</span>
+            </>
+          ) : (
+            <>
+              Sign In to <span className="text-purple-500">Bandage</span>
+            </>
+          )}
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-5">
           {isRegister && (
             <input
               type="text"
@@ -87,17 +100,18 @@ function Login() {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
           )}
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               type="email"
               placeholder="Email Address"
+              value={formData.email || ""}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
             {isRegister && (
               <button
@@ -105,9 +119,15 @@ function Login() {
                   e.preventDefault();
                   requestOtp();
                 }}
-                className="absolute flex items-center justify-center px-4 py-0.5 mt-2 text-sm font-medium text-white transition-all -translate-y-1/2 bg-blue-500 rounded shadow top-1/2 right-2 hover:underline hover:bg-blue-600"
+                className="absolute right-2 px-4 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow  hover:bg-blue-600"
+                style={{
+                  boxShadow: "0 2px 8px 0 rgba(59,130,246,0.10)",
+                  minWidth: 100,
+                  fontWeight: 600,
+                  letterSpacing: "0.01em",
+                }}
               >
-                Request otp
+                Request OTP
               </button>
             )}
           </div>
@@ -116,34 +136,35 @@ function Login() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
           )}
           {isRegister && isVerified && (
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
           )}
           <button
-            className="w-full py-2 text-white transition bg-blue-500 rounded hover:bg-blue-600"
+            className="w-full py-3 text-lg font-semibold text-white transition bg-blue-500 rounded-lg shadow bg-gradient-to-r focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 hover:bg-blue-600"
             onClick={(e) => {
               e.preventDefault();
               alert("user does not exist");
             }}
+            type="submit"
           >
             {isRegister ? "Register" : "Login"}
           </button>
         </form>
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex flex-col items-center justify-center gap-2 mt-4">
           {!isRegister && (
             <Link to="#" className="text-sm text-blue-500 hover:underline">
               Forgot Password?
             </Link>
           )}
           <button
-            className="ml-auto text-sm text-blue-500 hover:underline"
+            className="text-sm font-semibold text-purple-600 hover:underline"
             onClick={() => setIsRegister((prev) => !prev)}
           >
             {isRegister
@@ -151,18 +172,18 @@ function Login() {
               : "Don't have an account? Register"}
           </button>
         </div>
-        <div className="flex items-center justify-center mt-6">
+        <div className="flex items-center justify-center mt-4">
           <span className="text-sm text-gray-400">or continue with</span>
         </div>
         <div className="flex justify-center gap-4 mt-4">
-          <button className="p-2 border rounded-full hover:bg-gray-100">
+          <button className="p-2 transition bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
               className="w-6 h-6"
             />
           </button>
-          <button className="p-2 border rounded-full hover:bg-gray-100">
+          <button className="p-2 transition bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
             <img
               src="https://www.svgrepo.com/show/475647/facebook-color.svg"
               alt="Facebook"
@@ -180,6 +201,6 @@ function Login() {
       )}
     </div>
   );
-}
+};
 
 export default Login;
