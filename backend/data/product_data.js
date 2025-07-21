@@ -8,7 +8,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
-    category: "Laptops",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -23,7 +23,7 @@ export const product_data = [
       "No Cost EMI available",
       "Exchange offer: Up to ₹20,000 off on exchange",
     ],
-    image: "/assets/prod-img1.png",
+    image: "https://images.unsplash.com/photo-1695048132832-b41495f12eb4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aXBob25lJTIwMTV8ZW58MHx8MHx8fDA%3D",
     delivery: "Free Delivery by Tomorrow, 9AM",
     warranty:
       "1 Year Manufacturer Warranty for Device and 6 Months Warranty for In-Box Accessories",
@@ -39,6 +39,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -63,12 +64,13 @@ export const product_data = [
   {
     id: 3,
     name: "Google Pixel 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Pixel",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -92,13 +94,14 @@ export const product_data = [
   },
   {
     id: 4,
-    name: "Android 15 (128 GB) - Blue",
-    brand: "Apple",
+    name: "Android alpha 15 (128 GB) - Blue",
+    brand: "Android",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -123,12 +126,13 @@ export const product_data = [
   {
     id: 5,
     name: "One plus (128 GB) - Blue",
-    brand: "Apple",
+    brand: "One plus",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -153,12 +157,13 @@ export const product_data = [
   {
     id: 6,
     name: "Lenovo 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Lenovo",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -183,12 +188,13 @@ export const product_data = [
   {
     id: 7,
     name: "Asus (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Asus",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -203,7 +209,7 @@ export const product_data = [
       "No Cost EMI available",
       "Exchange offer: Up to ₹20,000 off on exchange",
     ],
-    image: "/assets/prod-img1.png",
+    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YXN1cyUyMGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
     delivery: "Free Delivery by Tomorrow, 9AM",
     warranty:
       "1 Year Manufacturer Warranty for Device and 6 Months Warranty for In-Box Accessories",
@@ -219,6 +225,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -243,12 +250,13 @@ export const product_data = [
   {
     id: 9,
     name: "Google Pixel 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Pixel",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -279,6 +287,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -309,6 +318,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -333,12 +343,13 @@ export const product_data = [
   {
     id: 12,
     name: "Google Pixel 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Pixel",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -369,6 +380,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -399,6 +411,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -423,12 +436,13 @@ export const product_data = [
   {
     id: 15,
     name: "Google Pixel 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Pixel",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -459,6 +473,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -489,6 +504,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -513,12 +529,13 @@ export const product_data = [
   {
     id: 18,
     name: "Google Pixel 15 (128 GB) - Blue",
-    brand: "Apple",
+    brand: "Pixel",
     rating: 4.6,
     reviews: 1523,
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -549,6 +566,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Mobiles",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [
@@ -579,6 +597,7 @@ export const product_data = [
     price: 74999,
     originalPrice: 79999,
     discount: "6% off",
+    category: "Laptops",
     description:
       "Experience the next generation of smartphone technology with the Apple iPhone 15. Featuring a stunning Super Retina XDR display, advanced dual-camera system, and the powerful A16 Bionic chip.",
     highlights: [

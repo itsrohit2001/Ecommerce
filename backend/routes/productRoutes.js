@@ -1,6 +1,11 @@
 const express = require("express");
 const { product_data } = require("../data/product_data");
+const {
+  readFromFileAsJson,
+  writeToFileAsJson,
+} = require("../utils/fileHandler");
 const router = express.Router();
+const { verifyAccessToken } = require("../utils/sessionManager");
 
 router.get("/", (req, res) => {
   const skip = parseInt(req.query.skip) || 0; // everything in url seems string so parseint used
@@ -8,6 +13,7 @@ router.get("/", (req, res) => {
   const id = req.query.id;
   const search = req.query.search || "";
   const category = req.query.category || "";
+  const brand = req.query.brand || "";
 
   if (id) {
     const product = product_data.find((p) => p.id === parseInt(id));
@@ -18,18 +24,23 @@ router.get("/", (req, res) => {
     }
   }
 
-
   // Filter products based on search and category
   const filteredProducts = product_data.filter((product) => {
     const matchesCategory =
-      category === "" || category === "All" || product.category?.toLowerCase() === category?.toLowerCase();
+      category === "" ||
+      category === "All" ||
+      product.category?.toLowerCase() === category?.toLowerCase();
+
+      const matchesBrand =
+      brand === "" || brand === "All" ||
+      product.brand?.toLowerCase() === brand?.toLowerCase();
 
     const matchesSearch =
       search === "" ||
       product.name.toLowerCase().includes(search.toLowerCase()) ||
       product.brand.toLowerCase().includes(search.toLowerCase());
 
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSearch && matchesBrand;
   });
 
   res.json({
@@ -45,6 +56,36 @@ router.get("/popular", (req, res) => {
   );
 
   res.json(popularProducts.slice(0, count));
+});
+
+router.post("/place-order", (req, res) => {
+  const accessToken = req.headers.authorization.split(" ")[1];
+  if (accessToken) {
+    const user = verifyAccessToken(accessToken);
+    if (!user) {
+      return res.status(401).json({ message: "unauthorised" });
+    }
+    const { cartItems, address } = req.body;
+    console.log(cartItems);
+    const newOrderList = cartItems.map((item) => {
+      return {
+        ...item,
+        email: user.email,
+        status: "Ordered",
+        orderDate: new Date(),
+        deliveryLocation: address,
+      };
+    });
+
+    const orderData = readFromFileAsJson("../data/order_list.json") || [];
+    writeToFileAsJson(
+      [...orderData, ...newOrderList],
+      "../data/order_list.json"
+    );
+    return res.status(201).json({ message: "Order Placed Successfully" });
+  } else {
+    return res.status(401).json({ message: "unauthorised" });
+  }
 });
 
 module.exports = router;

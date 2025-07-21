@@ -1,0 +1,47 @@
+[
+  {
+    "name": "rohit kr",
+    "email": "rk.dtg2050@gmail.com",
+    "password": "$2b$10$p8hjiwGsgEDfrZVl.SzpreuujaP1r.E2q96iBJ0vHr0mlAEKUaNY2",
+    "isAdmin": true,
+    "isVerified": true,
+    "isBlocked": false,
+    "profileUrl": "https://res.cloudinary.com/dtq5xj0zj/image/upload/v1698858702/rohit_kr.jpg",
+    "resetToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJrLmR0ZzIwNTBAZ21haWwuY29tIiwibmFtZSI6InJvaGl0IGtyIiwicmVzZXRUb2tlbiI6dHJ1ZSwicHVycG9zZSI6InBhc3N3b3JkX3Jlc2V0IiwiaWF0IjoxNzUwNzg0OTc1LCJleHAiOjE3NTA3ODg1NzV9.z3A7D48b9SqzrW7L4CXddHhM4HZThZtBsWML4T24Oiw",
+    "resetTokenExpiry": 1750788575024
+  },
+  {
+    "name": "MukeshMB",
+    "email": "mukesh1024mb@gmail.com",
+    "password": "$2b$10$QKmfizwM61Ma0cqezO.KRuhjBa8xTyYdxTpWEZ9YeFk2yyPb8JTMW"
+  },
+  {
+    "name": "Arashpardeep Singh",
+    "email": "singharash571@gmail.com",
+    "password": "$2b$10$VCzMMvxheqfYmc5R2ab/xea/oEnUBBexdClXvaUQjfuQRD98YuBri"
+  },
+  {
+    "name": "iamrohit",
+    "email": "itsrohit.rk0612@gmail.com",
+    "password": "$2b$10$fv6ZTxRFbJDsEYgtrqlrDOtkjOqpdCjIv58ViuuDNOdEibGnLEgLG"
+  },
+  {
+    "name": "krishna kanhaiya",
+    "email": "krishnakanhaiya4471@gmail.com",
+    "password": "$2b$10$yDjYWTHNsui2peckgoJHv.KnVtGYx6SqptO.1PxXLIL7jrhFnWf3y"
+  },
+  {
+    "name": "rohit kr",
+    "email": "iamrk.dtg2001@gmail.com",
+    "password": "$2b$10$c2lUz9QDRLxmYUCkK08AF.nKYGjbDXZ3x4Lcdfv9O4Ww4bW4zc0De",
+    "resetToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlhbXJrLmR0ZzIwMDFAZ21haWwuY29tIiwibmFtZSI6InJvaGl0IGtyIiwicmVzZXRUb2tlbiI6dHJ1ZSwicHVycG9zZSI6InBhc3N3b3JkX3Jlc2V0IiwiaWF0IjoxNzUwNjg5MDAyLCJleHAiOjE3NTA2OTI2MDJ9.EC_UTHZWDNutErNvlQkHJ1sQT8L555TAq7Kt40WFJTY",
+    "resetTokenExpiry": 1750692602592
+  },
+  {
+    "name": "pi senah",
+    "email": "pisenah260@exitbit.com",
+    "password": "$2b$10$2Ct2XhvhU2QLVo9V8f6jSO8D9/wk0F0KIdHcH/5kjZq/a3AJGKA1i",
+    "resetToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBpc2VuYWgyNjBAZXhpdGJpdC5jb20iLCJuYW1lIjoicGkgc2VuYWgiLCJyZXNldFRva2VuIjp0cnVlLCJwdXJwb3NlIjoicGFzc3dvcmRfcmVzZXQiLCJpYXQiOjE3NTA4MzkxNjAsImV4cCI6MTc1MDg0Mjc2MH0.S3bFU86Lc2OlPC7ThOEc5jzykUTWpsxQgFP2N5KNWgc",
+    "resetTokenExpiry": 1750842760024
+  }
+]
