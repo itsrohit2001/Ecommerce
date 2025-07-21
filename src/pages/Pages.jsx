@@ -34,7 +34,7 @@ const Pages = () => {
         <div className="mt-8 text-center">
           <p>
             Need more help? Visit our{" "}
-            <a href="/contact" className="text-blue-500 underline transition hover:text-blue-700">
+            <a href="/contact" className="text-blue-500 underline  hover:text-blue-700">
               Contact Us
             </a>{" "}
             page.

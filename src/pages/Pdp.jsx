@@ -1,14 +1,18 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContextProvider";
+import { FaHeart } from "react-icons/fa";
 
 const Pdp = () => {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, addToWishlist, wishlistItems, removeFromWishlist } = useContext(CartContext);
   const { id } = useParams();
   const [qty, setQty] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [actionLoading, setActionLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false); // For Add to Cart
+  const [wishlistLoading, setWishlistLoading] = useState(false); // For Wishlist
   const [product, setProduct] = useState(null);
+
+  const isInWishlist = wishlistItems.some((item) => item.id === product?.id);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -51,6 +55,24 @@ const Pdp = () => {
     }
   };
 
+  const handleAddToWishlist = () => {
+    if (product) {
+      setWishlistLoading(true);
+      setTimeout(() => {
+        if (isInWishlist) {
+          removeFromWishlist(product.id);
+          alert("Product removed from wishlist");
+        } else {
+          addToWishlist(product);
+          alert("Product added to wishlist");
+        }
+        // addToWishlist(product);
+        setWishlistLoading(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1200);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -73,11 +95,11 @@ const Pdp = () => {
   }
 
   return (
-    <div className="flex justify-center p-8 bg-gray-50">
+    <div className="flex justify-center p-8 px-2 py-10 bg-gray-50 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
       <div className="flex flex-col max-w-5xl gap-12 mx-auto">
         <div
           key={product.id}
-          className="flex flex-col gap-8 p-6 bg-white rounded shadow-lg md:flex-row"
+          className="flex flex-col gap-8 p-6 shadow-2xl bg-white/90 rounded-2xl md:flex-row"
         >
           {/* Product Image & Quantity */}
           <div className="flex flex-col items-center flex-1">
@@ -156,11 +178,11 @@ const Pdp = () => {
               <span className="font-semibold">Seller:</span>
               <span className="ml-2 text-blue-700">{product.seller}</span>
             </div>
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-6 mt-6">
               <button
                 className={`${
                   actionLoading ? "bg-orange-500" : "bg-orange-600"
-                } text-white px-6 py-2 rounded font-semibold bg-orange-400 hover:bg-orange-600 transition flex items-center justify-center gap-2 cursor-pointer`}
+                } text-white px-6 py-2 rounded font-semibold bg-orange-400 hover:bg-orange-600 flex items-center justify-center gap-2 cursor-pointer`}
                 disabled={!product.inStock || actionLoading}
                 onClick={handleAddToCart}
               >
@@ -170,10 +192,22 @@ const Pdp = () => {
                 {actionLoading ? "Adding..." : "Add to Cart"}
               </button>
               <button
-                className="px-6 py-2 font-semibold text-gray-900 transition bg-yellow-400 rounded cursor-pointer hover:bg-yellow-500"
-                disabled={!product.inStock}
+                onClick={handleAddToWishlist}
+                className="flex items-center justify-center px-6 py-2 font-semibold text-gray-900 bg-white border rounded cursor-pointer hover:bg-gray-100"
+                disabled={wishlistLoading}
               >
-                Buy Now
+                {wishlistLoading ? (
+                  <span className="inline-block w-5 h-5 border-2 border-blue-400 rounded-full border-t-transparent animate-spin"></span>
+                ) : (
+                  <FaHeart
+                    size={28}
+                    className={
+                      isInWishlist
+                        ? "text-red-500 cursor-pointer"
+                        : "text-gray-400 cursor-pointer hover:text-blue-400"
+                    }
+                  />
+                )}
               </button>
             </div>
             {!product.inStock && (
@@ -190,6 +224,6 @@ const Pdp = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Pdp;

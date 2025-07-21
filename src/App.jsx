@@ -13,6 +13,10 @@ import HomePage from "./pages/HomePage";
 import { CartContextProvider } from "./context/CartContextProvider";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import WishlistPage from "./pages/WishlistPage";
+import UserPage from "./pages/UserPage";
+import ForgotPassword from "./pages/ForgotPassword";
+import CreateNewPassword from "./pages/CreateNewPassword";
 
 const App = () => {
   return (
@@ -31,7 +35,11 @@ const App = () => {
             <Route path="/Shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/create-new-password" element={<CreateNewPassword />} />
           </Routes>
 
           <Footer />

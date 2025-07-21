@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import {
   FaPhoneAlt,
@@ -11,12 +11,14 @@ import {
 import { FOOTER_TEXT } from "../../constants/constant";
 
 const Footer = () => {
+  const location = useLocation();
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-  }, []);
+  }, [location.pathname]);
+
   let footerItems = [
     {
       title: "Company Info",
@@ -86,7 +88,7 @@ const Footer = () => {
                     <li key={i} className="cursor-pointer w-fit">
                       <Link
                         to={section.link ? section.link[i] : "#"}
-                        className="transition-colors hover:text-white"
+                        className="hover:text-white"
                       >
                         {item}
                       </Link>
@@ -98,7 +100,7 @@ const Footer = () => {
                           href={item.link}
                           target={item.link.startsWith("http") ? "_blank" : undefined}
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 transition-colors hover:text-white"
+                          className="flex items-center gap-2 hover:text-white"
                         >
                           {item.icon} {item.text}
                         </a>
@@ -124,7 +126,7 @@ const Footer = () => {
             <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
               <FaFacebookF className="text-xl text-gray-400 cursor-pointer hover:text-white" />
             </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" >
               <FaInstagram className="text-xl text-gray-400 cursor-pointer hover:text-white" />
             </a>
             <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">

@@ -1,16 +1,24 @@
-import { FaHeart, FaSearch, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaHeart,
+  FaSearch,
+  FaShoppingCart,
+  FaBars,
+  FaTimes,
+  FaUserCircle,
+} from "react-icons/fa";
 import { MENU_LIST, LOGO_TEXT, LOGIN_TEXT } from "../../constants/constant";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContextProvider";
-import React from "react";
 
 const Header = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, wishlistItems, clearWishlist, clearCart } =
+    useContext(CartContext);
   const cartItemCount = cartItems.reduce(
     (count, item) => count + (item.quantity || 1),
     0
   );
+  const wishlistItemCount = wishlistItems.length;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Search state
@@ -18,6 +26,33 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/user/me", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          console.log(data);
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  // Hide search modal on route change
+  useEffect(() => {
+    setShowSearch(false);
+    setSearchValue("");
+  }, [location.pathname]);
 
   // Handle search submit
   const handleSearch = (e) => {
@@ -29,18 +64,15 @@ const Header = () => {
     }
   };
 
-  // Hide search input on route change
-  React.useEffect(() => {
-    setShowSearch(false);
-    setSearchValue("");
-  }, [location.pathname]);
-
   return (
     <div className="flex items-center justify-center w-full bg-white shadow">
       <header className="flex items-center justify-between w-full px-4 py-4 header max-w-7xl md:px-8">
         {/* Logo */}
         <div className="flex-shrink-0 logo">
-          <Link to="/" className="text-2xl font-bold text-black-600 hover:text-blue-400">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-black-600 hover:text-blue-400"
+          >
             {LOGO_TEXT}
           </Link>
         </div>
@@ -58,40 +90,82 @@ const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <div className="hidden text-gray-600 md:block hover:text-blue-400">
-            <Link to="/login">{LOGIN_TEXT}</Link>
-          </div>
+          {!user ? (
+            <div className="hidden text-gray-600 md:block hover:text-blue-400">
+              <Link to="/login">{LOGIN_TEXT}</Link>
+            </div>
+          ) : (
+            <div className="hidden text-gray-600 md:block hover:text-blue-400">
+              <Link
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  localStorage.removeItem("accessToken");
+                  clearCart();
+                  clearWishlist();
+                  setUser(null);
+                  // window.location.reload();
+                  navigate("/");
+                }}
+              >
+                Logout
+              </Link>
+            </div>
+          )}
           <div className="flex items-center gap-4">
-            {/* Search Icon and Input */}
+            {/* Search Icon and Modal */}
             <div className="relative">
               <FaSearch
                 className="text-gray-400 cursor-pointer hover:text-blue-400"
-                onClick={() => setShowSearch((prev) => !prev)}
+                onClick={() => setShowSearch(true)}
               />
-              {/* {showSearch && (
-                <form
-                  onSubmit={handleSearch}
-                  className="absolute right-0 z-50 flex items-center w-56 px-2 py-1 bg-white rounded shadow top-8"
-                >
-                  <input
-                    type="text"
-                    className="flex-1 px-2 py-1 text-sm border-none outline-none"
-                    placeholder="Search products..."
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    autoFocus
-                  />
-                  <button
-                    type="submit"
-                    className="ml-2 font-semibold text-blue-500"
+              {showSearch && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                  <form
+                    onSubmit={handleSearch}
+                    className="relative flex flex-col items-center w-full max-w-md p-6 mx-4 bg-white shadow-2xl rounded-2xl"
                   >
-                    Go
-                  </button>
-                </form>
-              )} */}
+                    <button
+                      type="button"
+                      className="absolute text-2xl text-gray-400 top-2 right-4 hover:text-red-500"
+                      onClick={() => setShowSearch(false)}
+                      aria-label="Close"
+                    >
+                      &times;
+                    </button>
+                    <h2 className="mb-4 text-xl font-bold text-blue-700">
+                      Search Products
+                    </h2>
+                    <input
+                      type="text"
+                      autoFocus
+                      className="w-full px-4 py-3 mb-4 text-lg border border-blue-200 rounded-lg shadow-sm bg-blue-50/50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="What are you looking for?"
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className="w-full py-3 text-lg font-semibold text-white bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      aria-label="Search"
+                    >
+                      Search
+                    </button>
+                  </form>
+                </div>
+              )}
             </div>
             <div className="relative flex items-center">
-              <Link to="/cart">
+              <span
+                onClick={() => {
+                  if (!user && cartItemCount > 0) {
+                    navigate("/login");
+                  } else {
+                    navigate("/cart");
+                  }
+                }}
+                style={{ display: "inline-block" }}
+              >
                 <FaShoppingCart
                   className={`cursor-pointer ${
                     cartItems.length > 0
@@ -107,9 +181,36 @@ const Header = () => {
                     {cartItemCount}
                   </span>
                 )}
+              </span>
+            </div>
+            <div className="relative flex items-center">
+              <Link to="/wishlist">
+                <FaHeart
+                  className={`cursor-pointer ${
+                    wishlistItemCount > 0
+                      ? "text-red-500"
+                      : "text-gray-400 hover:text-blue-400"
+                  }`}
+                />
+                {wishlistItemCount > 0 && (
+                  <span
+                    className="absolute text-base font-semibold -right-3 top-1"
+                    style={{ background: "none", color: "black" }}
+                  >
+                    {wishlistItemCount}
+                  </span>
+                )}
               </Link>
             </div>
-            <FaHeart className="text-gray-400 cursor-pointer hover:text-blue-400" />
+            {/* Avatar and Full Name */}
+            {user && (
+              <Link to="/user" className="flex flex-col items-center ml-2">
+                <FaUserCircle className="text-blue-500" size={38} />
+                <span className="mt-1 text-xs font-semibold text-gray-700">
+                  {user.name || user.email}
+                </span>
+              </Link>
+            )}
           </div>
           {/* Hamburger for mobile */}
           <button
@@ -142,7 +243,7 @@ const Header = () => {
                 </button>
               </div>
               {/* Mobile Search */}
-              <form
+              {/* <form
                 onSubmit={(e) => {
                   handleSearch(e);
                   setMobileMenuOpen(false);
@@ -162,7 +263,7 @@ const Header = () => {
                 >
                   Go
                 </button>
-              </form>
+              </form> */}
               <nav>
                 <ul className="flex flex-col gap-6">
                   {MENU_LIST.map((menu) => (
@@ -208,15 +309,12 @@ const Header = () => {
               </div>
             </div>
             {/* Click outside to close */}
-            <div
-              className="flex-1"
-              onClick={() => setMobileMenuOpen(false)}
-            />
+            <div className="flex-1" onClick={() => setMobileMenuOpen(false)} />
           </div>
         )}
       </header>
     </div>
   );
-}
+};
 
 export default Header;

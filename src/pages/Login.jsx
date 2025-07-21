@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+// Loader Component
+const Loader = () => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+    <div className="flex flex-col items-center">
+      <span className="w-16 h-16 border-4 border-blue-400 rounded-full shadow-lg border-t-transparent animate-spin"></span>
+      <span className="mt-4 text-lg font-semibold text-blue-700 drop-shadow">
+        Loading...
+      </span>
+    </div>
+  </div>
+);
 
 const Toast = ({ message, onClose, isSuccess = false }) => {
   useEffect(() => {
@@ -34,17 +47,35 @@ function validateEmail(email) {
 }
 
 const Login = () => {
+  // const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
   const [formData, setFormData] = useState({});
   const [toastMessage, setToastMessage] = useState("");
   const [isSuccessToast, setIsSuccessToast] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // const location = useLocation();
+
+  // prefill email if coming from registration page
+  // This will only prefill if the email is passed in the location state
+  // useEffect(() => {
+  //   if (location.state && location.state.email) {
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       email: location.state.email,
+  //       password: "", // Ensure password is not prefilled
+  //     }));
+  //   }
+  // }, [location.state]);
 
   const closeToast = () => {
     setToastMessage("");
   };
 
   const requestOtp = async () => {
+    setIsLoading(true);
     try {
       if (!formData.email) {
         setIsSuccessToast(false);
@@ -67,6 +98,7 @@ const Login = () => {
       if (res.ok) {
         setIsSuccessToast(true);
         setToastMessage("Email Sent Successfully");
+        setOtpSent(true);
       } else {
         setIsSuccessToast(false);
         setToastMessage("Failed to Send OTP! Please Retry Again");
@@ -74,6 +106,83 @@ const Login = () => {
     } catch (error) {
       setIsSuccessToast(false);
       setToastMessage("Failed to Send OTP! Please Retry Again");
+    } finally {
+      setIsLoading(false);
+      // setFormData({ ...formData, otp: "" }); // Reset OTP field
+    }
+  };
+
+  const registerUser = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setIsSuccessToast(true);
+        setToastMessage("Registration Successful");
+        // Reset form data after successful registration and landing on login page
+        setTimeout(() => {
+          setIsRegister(false); // Switch to login mode
+          setFormData({ email: formData.email }); // Prefill email, clear password i.e., instead of password= "" remove password and confirmPassword from formData
+          setOtpSent(false);
+        }, 1500);
+      } else {
+        const errorData = await res.json();
+        if (errorData.message) {
+          setToastMessage(errorData.message);
+        } else {
+          setToastMessage("Registration Failed");
+        }
+        setIsSuccessToast(false);
+      }
+    } catch (error) {
+      setIsSuccessToast(false);
+      setToastMessage(error.message || "Registration Failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loginUser = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("accessToken", data.accessToken);
+        console.log("Login Response:", data);
+        setIsSuccessToast(true);
+        setToastMessage("Login Successful");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      } else {
+        const errorData = await res.json();
+        if (errorData.message) {
+          setToastMessage(errorData.message);
+        } else {
+          setToastMessage("Login Failed");
+        }
+        setIsSuccessToast(false);
+      }
+    } catch (error) {
+      setIsSuccessToast(false);
+      setToastMessage(error.message || "Login Failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,10 +209,31 @@ const Login = () => {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
           )}
-          <div className="relative flex items-center">
+          {isRegister ? (
+            <div className="relative flex items-center">
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={formData.email || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  requestOtp();
+                }}
+                className="absolute right-2 px-4 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow  hover:bg-blue-600"
+              >
+                Request OTP
+              </button>
+            </div>
+          ) : (
             <input
               type="email"
               placeholder="Email Address"
@@ -111,55 +241,87 @@ const Login = () => {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
-            />
-            {isRegister && (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  requestOtp();
-                }}
-                className="absolute right-2 px-4 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg shadow  hover:bg-blue-600"
-                style={{
-                  boxShadow: "0 2px 8px 0 rgba(59,130,246,0.10)",
-                  minWidth: 100,
-                  fontWeight: 600,
-                  letterSpacing: "0.01em",
-                }}
-              >
-                Request OTP
-              </button>
-            )}
-          </div>
-
-          {(!isRegister || isVerified) && (
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
             />
           )}
-          {isRegister && isVerified && (
+          {isRegister && otpSent && (
+            <input
+              type="number"
+              placeholder="OTP"
+              className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              onChange={(e) =>
+                setFormData({ ...formData, otp: e.target.value })
+              }
+            />
+          )}
+          {(!isRegister || otpSent) && (
+            <div className="relative flex items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+                value={formData.password || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <span
+                className="absolute text-gray-400 cursor-pointer right-4 hover:text-blue-500"
+                onClick={() => setShowPassword((prev) => !prev)}
+                tabIndex={0}
+                role="button"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+          )}
+          {isRegister && otpSent && (
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full px-4 py-3 transition border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              className="w-full px-4 py-3 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-blue-50/50"
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
             />
           )}
           <button
-            className="w-full py-3 text-lg font-semibold text-white transition bg-blue-500 rounded-lg shadow bg-gradient-to-r focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 hover:bg-blue-600"
+            className={`w-full py-3 text-lg font-semibold text-white  bg-blue-500 rounded-lg shadow bg-gradient-to-r focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 hover:bg-blue-600 ${
+              !formData.email ||
+              !formData.password ||
+              (isRegister &&
+                (!otpSent ||
+                  !formData.otp ||
+                  !formData.password ||
+                  !formData.confirmPassword))
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
             onClick={(e) => {
               e.preventDefault();
-              alert("user does not exist");
+              if (isRegister) {
+                registerUser();
+              } else {
+                loginUser();
+              }
             }}
             type="submit"
+            disabled={
+              !formData.email ||
+              (isRegister &&
+                (!otpSent ||
+                  !formData.otp ||
+                  !formData.password ||
+                  !formData.confirmPassword))
+            }
           >
             {isRegister ? "Register" : "Login"}
           </button>
         </form>
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           {!isRegister && (
-            <Link to="#" className="text-sm text-blue-500 hover:underline">
+            <Link to="/forgot-password" className="text-sm text-blue-500 hover:underline">
               Forgot Password?
             </Link>
           )}
@@ -176,14 +338,14 @@ const Login = () => {
           <span className="text-sm text-gray-400">or continue with</span>
         </div>
         <div className="flex justify-center gap-4 mt-4">
-          <button className="p-2 transition bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
+          <button className="p-2 bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
               className="w-6 h-6"
             />
           </button>
-          <button className="p-2 transition bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
+          <button className="p-2 bg-white border border-blue-100 rounded-full shadow hover:bg-blue-50">
             <img
               src="https://www.svgrepo.com/show/475647/facebook-color.svg"
               alt="Facebook"
@@ -192,6 +354,7 @@ const Login = () => {
           </button>
         </div>
       </div>
+      {isLoading && <Loader />}
       {toastMessage && (
         <Toast
           message={toastMessage}

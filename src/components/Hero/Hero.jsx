@@ -16,7 +16,7 @@ const Hero = () => {
     <>
       <Swiper
         slidesPerView={1}
-        spaceBetween={30}
+        spaceBetween={0}
         loop={false}
         pagination={{
           clickable: true,
@@ -24,12 +24,24 @@ const Hero = () => {
         navigation={true}
         modules={[Pagination, Navigation]}
         className="mySwiper"
+        autoplay={{
+          delay: 2500,
+        }}
       >
-        <SwiperSlide>{<Slide isFirstSlide={true} />}</SwiperSlide>
+        <SwiperSlide>{<Slide title={"This is the first slide"} text={"This is the first slide description."} />}</SwiperSlide>
         <SwiperSlide>
-          {<Slide isFirstSlide={false} name={"This is the second slide"} />}
+          {<Slide title={"This is the second slide"} text={"This is the second slide description."} />}
         </SwiperSlide>
-        <SwiperSlide>{<Slide isFirstSlide={false} />}</SwiperSlide>
+        <SwiperSlide>
+          <Slide
+            title="Mega Electronics Sale"
+            text="Grab the best deals on smartphones, laptops, and more. Limited time only!"
+            image="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80"
+            ctaText="Shop Electronics"
+            ctaLink="/products?category=Laptops"
+            bgColor="from-blue-500 via-cyan-400 to-blue-300"
+          />
+        </SwiperSlide>
       </Swiper>
     </>
   );

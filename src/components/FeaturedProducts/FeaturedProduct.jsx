@@ -19,10 +19,17 @@ export const FeaturedProduct = () => {
 
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return(
-    <div className="flex flex-col items-center justify-center gap-8 p-8 bg-gray-50">
+    <div className="flex flex-col items-center justify-center gap-8 p-8 bg-gray-50 bg-gradient-to-b from-blue-200 via-purple-200 to-purple-200">
          <ProductListUI products={products} />
-         <Link to={"/products"} className="flex items-center gap-2 px-6 py-3 text-white bg-orange-500 rounded shadow-lg hover:bg-orange-600 full animate-bounce hover:animate-none">View More</Link>
+         <Link to={"/products"} className="flex items-center gap-2 px-6 py-3 text-white bg-blue-600 rounded shadow-lg hover:bg-blue-900 full animate-bounce hover:animate-none">View More</Link>
     </div>
     );
 }
